@@ -1,1 +1,630 @@
-About the game
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Heist! Cops &amp; Robbers</title>
+<meta name="description" content="Heist! Cops & Robbers is a 2–6 player team board game of secret plans, open chases and one unanimous accusation, set in a 1940s noir town you build fresh every game.">
+<meta property="og:title" content="Heist! Cops & Robbers">
+<meta property="og:description" content="One town. One secret target. Ten nights until dawn.">
+<meta property="og:image" content="assets/social-preview.png">
+<meta name="theme-color" content="#0c0d0f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230c0d0f'/%3E%3Ctext x='32' y='48' font-family='Georgia,serif' font-size='44' font-weight='700' fill='%23f08a24' text-anchor='middle'%3EH!%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Limelight&family=Bebas+Neue&family=Spectral:ital,wght@0,400;0,600;1,400&family=Courier+Prime:wght@400;700&display=swap">
+<style>
+/* One look, on purpose: a night-time noir film set. Black, cream, sodium-lamp amber,
+   neon red for the crew, police blue for the law, and the cover's poster orange. */
+:root{
+  --bg:#0c0d0f; --panel:#15161a; --panel2:#1c1d22; --ink:#ebe4d3; --muted:#a39d90; --line:#2c2d33;
+  --amber:#e9b553; --orange:#f08a24; --neon:#e4513f; --cool:#86b6d8; --cream:#efe7d4;
+  --display:"Limelight","Didot",Georgia,serif;
+  --sign:"Bebas Neue","Oswald","Arial Narrow",sans-serif;
+  --body:"Spectral",Georgia,serif;
+  --mono:"Courier Prime","Courier New",monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;
+  background-image:radial-gradient(ellipse at 15% -5%,#1f2026 0,transparent 50%),radial-gradient(ellipse at 100% 40%,#1a1214 0,transparent 40%)}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--amber)}
+h1,h2,h3{font-weight:400;margin:0;text-wrap:balance}
+p{margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+section{padding:88px 0;border-top:1px solid var(--line)}
+.eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber)}
+h2{font-family:var(--display);font-size:clamp(32px,5vw,54px);line-height:1.05;margin:10px 0 18px}
+h3{font-family:var(--sign);font-size:26px;letter-spacing:.05em;line-height:1.05}
+.lede{font-size:clamp(18px,2vw,21px);color:var(--muted);max-width:62ch}
+.lede b,.muted b{color:var(--ink);font-weight:600}
+.muted{color:var(--muted)}
+.btn{display:inline-flex;align-items:center;gap:10px;font:700 14px var(--mono);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;
+  padding:14px 18px;border:1.5px solid var(--ink);color:var(--ink);background:transparent;cursor:pointer;transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.primary{background:var(--orange);border-color:var(--orange);color:#15110a}
+.btn.red{background:var(--neon);border-color:var(--neon);color:#160a08}
+.btn:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+
+/* nav */
+nav.top{position:sticky;top:0;z-index:20;background:rgba(12,13,15,.86);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;align-items:center;gap:20px;height:58px}
+nav.top .logo{font-family:var(--display);font-size:26px;color:var(--orange);text-decoration:none;white-space:nowrap}
+nav.top ul{display:flex;gap:18px;list-style:none;margin:0 0 0 auto;padding:0;overflow-x:auto;scrollbar-width:none}
+nav.top ul::-webkit-scrollbar{display:none}
+nav.top a.l{font:400 13px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;white-space:nowrap}
+nav.top a.l:hover{color:var(--ink)}
+@media (max-width:760px){nav.top ul li.hide-s{display:none}}
+
+/* hero */
+.hero{padding:56px 0 80px;border:0;position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:48px;align-items:center}
+@media (max-width:860px){.hero .wrap{grid-template-columns:minmax(0,1fr)}}
+.title{font-family:var(--display);font-size:clamp(84px,15vw,176px);line-height:.9;color:var(--orange);letter-spacing:-.01em;
+  text-shadow:0 0 40px rgba(240,138,36,.25);transform:rotate(-4deg);transform-origin:left bottom;margin:10px 0 8px}
+.subtitle{font-family:var(--sign);font-size:clamp(30px,4.4vw,46px);letter-spacing:.06em;color:var(--cream);transform:rotate(-4deg);transform-origin:left;margin-bottom:34px}
+.tagline{font-family:var(--display);font-size:clamp(22px,2.6vw,30px);line-height:1.25;margin-bottom:16px}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 30px}
+.stat{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:104px;padding:10px 14px;background:var(--cream);color:#1a1712;
+  box-shadow:4px 4px 0 var(--neon)}
+.stat b{font-family:var(--sign);font-size:34px;line-height:1;font-weight:400;color:#c4352a}
+.stat span{font:700 11px var(--mono);letter-spacing:.14em;text-transform:uppercase}
+.ctas{display:flex;flex-wrap:wrap;gap:12px}
+@media (max-width:480px){.stat{min-width:0;flex:1 1 0;padding:10px 6px}.stat b{font-size:28px}}
+.cover{position:relative;justify-self:center;max-width:430px;width:100%}
+.cover img{width:100%;box-shadow:0 40px 90px -30px #000,0 0 0 1px #000;transform:rotate(2.5deg);transition:transform .4s}
+.cover:hover img{transform:rotate(0) scale(1.02)}
+.stamp{position:absolute;right:-8px;top:18px;font:700 14px var(--mono);letter-spacing:.14em;color:var(--neon);border:2.5px solid var(--neon);padding:6px 10px;
+  transform:rotate(12deg);background:rgba(12,13,15,.7)}
+.searchlight{position:absolute;inset:-20% -40% auto auto;width:70%;height:140%;background:conic-gradient(from 200deg at 100% 0,transparent 0deg,rgba(233,181,83,.07) 12deg,transparent 26deg);
+  pointer-events:none;animation:sweep 9s ease-in-out infinite alternate}
+@keyframes sweep{from{transform:rotate(-10deg)}to{transform:rotate(14deg)}}
+
+/* ticker */
+.ticker{background:var(--neon);color:#170a08;overflow:hidden;white-space:nowrap;border:0;padding:0}
+.ticker div{display:inline-block;font:400 24px var(--sign);letter-spacing:.12em;padding:10px 0;animation:tick 40s linear infinite}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* sides */
+.sides{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:36px}
+@media (max-width:760px){.sides{grid-template-columns:minmax(0,1fr)}}
+.side{border:1px solid var(--line);background:var(--panel);padding:26px;display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden}
+.side.rob{border-top:4px solid var(--neon)} .side.cop{border-top:4px solid var(--cool)}
+.side .who{display:flex;gap:6px}
+.side .who img{width:33%;max-width:110px}
+.side h3{font-size:34px}
+.side.rob h3{color:var(--neon)} .side.cop h3{color:var(--cool)}
+.side ul{margin:0;padding-left:20px;color:var(--muted)}
+.side li b{color:var(--ink);font-weight:600}
+.side .names{font:700 12px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+
+/* night */
+.steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin:36px 0 30px;counter-reset:s;list-style:none;padding:0}
+@media (max-width:900px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.steps{grid-template-columns:minmax(0,1fr)}}
+.steps li{background:var(--panel);border:1px solid var(--line);padding:20px 18px 22px;position:relative}
+.steps li::before{counter-increment:s;content:counter(s);font-family:var(--display);font-size:44px;line-height:1;color:var(--amber);display:block;margin-bottom:8px}
+.steps li h3{font-size:24px;margin-bottom:6px}
+.steps li p{font-size:15px;color:var(--muted);line-height:1.5}
+.scrollx{overflow-x:auto;border:1px solid var(--line);background:#000}
+.scrollx img{min-width:760px;width:100%}
+.caption{font:400 13px var(--mono);color:var(--muted);margin-top:10px;letter-spacing:.03em}
+
+/* town */
+.town{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:36px;align-items:start;margin-top:34px}
+@media (max-width:900px){.town{grid-template-columns:minmax(0,1fr)}}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);background:#000;box-shadow:0 30px 80px -30px #000}
+.grid4 img{width:100%;aspect-ratio:1;object-fit:cover;opacity:0;transform:scale(.92);transition:opacity .35s,transform .35s}
+.grid4 img.in{opacity:1;transform:none}
+.panel{display:flex;flex-direction:column;gap:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:400 13px var(--mono);border:1px solid var(--line);padding:5px 10px;background:var(--panel)}
+.chip.ok{border-color:var(--neon);color:var(--ink)}
+.chip.out{color:#6d685f;text-decoration:line-through}
+.recipes{width:100%;border-collapse:collapse;font-size:15px}
+.recipes td{padding:8px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.recipes td:first-child{font-family:var(--sign);font-size:21px;letter-spacing:.04em;padding-right:14px;white-space:nowrap;color:var(--neon)}
+.recipes td:last-child{color:var(--muted)}
+
+/* case */
+.case{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;margin-top:34px;align-items:start}
+@media (max-width:860px){.case{grid-template-columns:minmax(0,1fr)}}
+.file{background:#e8dfc8;color:#1d1a14;padding:26px;position:relative;box-shadow:0 30px 60px -30px #000;background-image:repeating-linear-gradient(0deg,transparent 0 31px,rgba(0,0,0,.06) 31px 32px)}
+.file::before{content:"CASE FILE · HARBOUR HILL";position:absolute;top:-14px;left:20px;background:#c9a25a;color:#1d1a14;font:700 12px var(--mono);letter-spacing:.14em;padding:5px 12px}
+.file h3{font-family:var(--display);font-size:30px;letter-spacing:0;margin:8px 0 14px}
+.file ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:12px;font-family:var(--mono);font-size:15px;line-height:1.5}
+.file li.hid{display:none}
+.file li.new{animation:pop .5s}
+@keyframes pop{from{background:#f3d27f}to{background:transparent}}
+.file .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.file .btn{border-color:#1d1a14;color:#1d1a14}
+.suspects{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+@media (max-width:520px){.suspects{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.suspects button{background:none;border:2px solid transparent;padding:0;cursor:pointer;position:relative;color:var(--ink);font:400 15px var(--sign);letter-spacing:.06em;transition:transform .15s}
+.suspects button:hover{transform:translateY(-3px)}
+.suspects button img{width:100%;border-radius:6px}
+.suspects button span{display:block;margin-top:6px}
+.suspects button.x img{filter:grayscale(1) brightness(.4)}
+.suspects button.x::after{content:"✕";position:absolute;top:22%;left:0;right:0;text-align:center;font-size:48px;color:var(--neon);font-family:var(--body)}
+.verdict{min-height:3.2em;margin-top:18px;font-size:18px}
+.verdict.win{color:var(--amber)} .verdict.lose{color:var(--neon)}
+
+/* modes */
+.modes{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:34px;align-items:end}
+@media (max-width:900px){.modes{grid-template-columns:minmax(0,1fr)}}
+.mode{background:var(--panel);border:1px solid var(--line);padding:20px;display:flex;flex-direction:column;gap:8px}
+.mode .n{font:700 12px var(--mono);letter-spacing:.16em;color:var(--amber)}
+.mode h3{font-family:var(--display);font-size:24px;letter-spacing:0}
+.mode p{font-size:15px;color:var(--muted);line-height:1.45}
+.mode .tag{align-self:flex-start;font:700 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;background:var(--amber);color:#15110a}
+@media (min-width:901px){.mode:nth-child(1){min-height:200px}.mode:nth-child(2){min-height:230px}.mode:nth-child(3){min-height:260px}.mode:nth-child(4){min-height:290px}.mode:nth-child(5){min-height:320px}}
+
+/* box */
+.box{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;margin-top:34px}
+@media (max-width:860px){.box{grid-template-columns:minmax(0,1fr)}}
+.contents{list-style:none;margin:0;padding:0;columns:2;column-gap:30px}
+@media (max-width:520px){.contents{columns:1}}
+.contents li{break-inside:avoid;display:flex;gap:12px;align-items:baseline;padding:9px 0;border-bottom:1px dashed var(--line)}
+.contents li b{font-family:var(--sign);font-size:24px;font-weight:400;color:var(--orange);min-width:34px;text-align:right}
+.contents li span{font-size:15px;line-height:1.35}
+.contents li small{display:block;color:var(--muted);font-size:13px}
+.spread{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;align-content:start}
+.spread img{border-radius:6px;box-shadow:0 14px 30px -16px #000;transition:transform .2s}
+.spread img:nth-child(odd){transform:rotate(-2deg)} .spread img:nth-child(even){transform:rotate(2deg)}
+.spread img:hover{transform:scale(1.06) rotate(0);position:relative;z-index:2}
+
+/* gallery */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:30px 0 22px}
+.tabs button{font:700 13px var(--mono);letter-spacing:.08em;text-transform:uppercase;background:transparent;color:var(--ink);border:1px solid var(--line);padding:9px 14px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:18px}
+.gal.wide{grid-template-columns:repeat(auto-fill,minmax(min(100%,420px),1fr))}
+.gal figure{margin:0;display:flex;flex-direction:column;gap:8px;cursor:zoom-in}
+.gal figure img{width:100%;box-shadow:0 18px 40px -22px #000;border-radius:4px;transition:transform .2s}
+.gal figure:hover img{transform:translateY(-4px)}
+.gal figcaption{font:400 13px var(--mono);color:var(--muted);letter-spacing:.03em}
+dialog{border:0;padding:0;background:transparent;max-width:min(92vw,900px);max-height:92vh}
+dialog::backdrop{background:rgba(0,0,0,.86)}
+dialog img{max-height:84vh;width:auto;margin:0 auto}
+dialog p{font:400 14px var(--mono);color:var(--ink);text-align:center;margin-top:12px}
+
+/* downloads */
+.dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:34px}
+@media (max-width:760px){.dl{grid-template-columns:minmax(0,1fr)}}
+.dl a.card{display:grid;grid-template-columns:120px minmax(0,1fr);gap:20px;align-items:center;text-decoration:none;color:var(--ink);background:var(--panel);border:1px solid var(--line);padding:18px;transition:border-color .2s,transform .2s}
+.dl a.card:hover{border-color:var(--amber);transform:translateY(-3px)}
+.dl a.card img{width:120px;box-shadow:0 10px 26px -10px #000}
+.dl a.card h3{font-size:28px;margin-bottom:4px}
+.dl a.card p{font-size:15px;color:var(--muted)}
+.dl a.card .go{font:700 13px var(--mono);letter-spacing:.1em;color:var(--amber);margin-top:10px;display:block}
+
+/* notes */
+.cols3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:34px}
+@media (max-width:860px){.cols3{grid-template-columns:minmax(0,1fr)}}
+.note{border-top:2px solid var(--amber);padding-top:16px;display:flex;flex-direction:column;gap:10px}
+.note p{font-size:16px;color:var(--muted)}
+.road{list-style:none;margin:34px 0 0;padding:0;display:grid;gap:0;border-left:2px solid var(--line)}
+.road li{position:relative;padding:0 0 26px 30px}
+.road li::before{content:"";position:absolute;left:-9px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--muted)}
+.road li.done::before{background:var(--amber);border-color:var(--amber)}
+.road li.now::before{background:var(--neon);border-color:var(--neon);box-shadow:0 0 0 6px rgba(228,81,63,.2)}
+.road li b{font-family:var(--sign);font-size:24px;font-weight:400;letter-spacing:.04em;display:block}
+.road li span{color:var(--muted);font-size:16px}
+.road li em{font:700 11px var(--mono);font-style:normal;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-left:8px}
+.road li.now em{color:var(--neon)}
+
+footer{border-top:1px solid var(--line);padding:56px 0 70px;color:var(--muted);font-size:15px}
+footer .wrap{display:grid;grid-template-columns:minmax(0,1.2fr) repeat(2,minmax(0,1fr));gap:32px}
+@media (max-width:760px){footer .wrap{grid-template-columns:minmax(0,1fr)}}
+footer .big{font-family:var(--display);font-size:44px;color:var(--orange);line-height:1}
+footer h3{color:var(--ink);font-size:20px;margin-bottom:10px}
+footer ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+footer a{color:var(--muted)} footer a:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<nav class="top" aria-label="Main">
+  <div class="wrap">
+    <a class="logo" href="#top">Heist!</a>
+    <ul>
+      <li><a class="l" href="#sides">The game</a></li>
+      <li><a class="l" href="#night">How to play</a></li>
+      <li class="hide-s"><a class="l" href="#town">The town</a></li>
+      <li class="hide-s"><a class="l" href="#box">In the box</a></li>
+      <li><a class="l" href="#gallery">Gallery</a></li>
+      <li><a class="l" href="#downloads">Download</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="searchlight" aria-hidden="true"></div>
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">A team board game · Draft 1 · Now playtesting</div>
+      <h1 class="title">Heist!</h1>
+      <div class="subtitle">Cops &amp; Robbers</div>
+      <p class="tagline">One town. One secret target.<br>Ten nights until dawn.</p>
+      <p class="lede">The robbers know exactly what they're after. The cops don't, and every one of them has to agree before they can slap on the cuffs. Every shop the gang visits is a clue, every move is planned in secret, and every card you spend leaves a trail.</p>
+      <div class="stats" aria-label="Game facts">
+        <div class="stat"><b>2–6</b><span>Players</span></div>
+        <div class="stat"><b>12+</b><span>Ages</span></div>
+        <div class="stat"><b>60</b><span>Minutes</span></div>
+        <div class="stat"><b>2</b><span>Teams</span></div>
+      </div>
+      <div class="ctas">
+        <a class="btn primary" href="rules/heist-rulebook-A4.pdf">Read the rulebook</a>
+        <a class="btn" href="print-and-play/heist-print-and-play-A4.pdf">Print &amp; play</a>
+      </div>
+    </div>
+    <div class="cover">
+      <img src="assets/cover.webp" width="1000" height="1414" alt="Heist! box cover: a masked robber and two cops in front of the City Museum, with the title on a slanted black panel">
+      <div class="stamp" aria-hidden="true">TOP SECRET</div>
+    </div>
+  </div>
+</header>
+
+<div class="ticker" aria-hidden="true"><div>
+  ★ LATE CITY EDITION ★ SAFE-CRACKERS SPOTTED NEAR HARBOUR HILL ★ CHIEF DENIES MOLE IN 14TH PRECINCT ★ GUARD SCHEDULES GO MISSING FROM ALL-NIGHT DINER ★ MUSEUM GALA TONIGHT, POLICE NOT INVITED ★ FOG ROLLS IN AT THE DOCKS ★ WITNESS SAYS: "IT WASN'T THE BANK!" ★
+  ★ LATE CITY EDITION ★ SAFE-CRACKERS SPOTTED NEAR HARBOUR HILL ★ CHIEF DENIES MOLE IN 14TH PRECINCT ★ GUARD SCHEDULES GO MISSING FROM ALL-NIGHT DINER ★ MUSEUM GALA TONIGHT, POLICE NOT INVITED ★ FOG ROLLS IN AT THE DOCKS ★ WITNESS SAYS: "IT WASN'T THE BANK!" ★
+</div></div>
+
+<section id="sides">
+  <div class="wrap">
+    <div class="eyebrow">Pick a side</div>
+    <h2>Two teams. One of them is lying.</h2>
+    <p class="lede">Split the table into two even teams. Each team always moves a crew of exactly 3 pawns, so the game plays the same whether you're 2, 4 or 6. Every pawn moves <b>openly</b> on the board. What it's actually <i>up to</i> is the secret.</p>
+    <div class="sides">
+      <article class="side rob">
+        <div class="who"><img src="assets/art/pawn-robber-1.webp" alt="Robber pawn 1"><img src="assets/art/pawn-robber-2.webp" alt="Robber pawn 2"><img src="assets/art/pawn-robber-3.webp" alt="Robber pawn 3"></div>
+        <div class="names">The crew · Rosa · Benny · Ziggy</div>
+        <h3>The Robbers</h3>
+        <p class="muted">You've drawn a secret job: the Bank, the Museum, the Jewellery Store, the Casino or the Grand Hotel. Now get the three tools it needs without making it obvious.</p>
+        <ul>
+          <li><b>Grab</b> gear around town: a Drill from the Hardware Store, a Disguise from the Theatre, a Guard Schedule from the all-night diner.</li>
+          <li><b>Bluff.</b> Grab things you don't need. Drop decoy tokens on the wrong targets. Say anything you like.</li>
+          <li><b>Strike.</b> Get a robber onto the target with all 3 items in the crew and play <b>Heist!</b> You win, instantly.</li>
+        </ul>
+      </article>
+      <article class="side cop">
+        <div class="who"><img src="assets/art/pawn-cop-1.webp" alt="Cop pawn 1"><img src="assets/art/pawn-cop-2.webp" alt="Cop pawn 2"><img src="assets/art/pawn-cop-3.webp" alt="Cop pawn 3"></div>
+        <div class="names">The law · Dot · Ray · Kim</div>
+        <h3>The Cops</h3>
+        <p class="muted">You don't know the target. But you know what every target needs, and you can see where the crew has been shopping.</p>
+        <ul>
+          <li><b>Search</b> and <b>stake out</b> suppliers to see exactly what got grabbed.</li>
+          <li><b>Chase</b> suspects and throw down <b>roadblocks</b>. Caught robbers drop evidence.</li>
+          <li><b>Accuse.</b> Every cop secretly names a target. If you all agree and you're right, you win. You only get 2 tries.</li>
+        </ul>
+      </article>
+    </div>
+    <p class="lede" style="margin-top:28px">And if the sun comes up after Hour 10 with no heist? <b>The cops win.</b> It's a race, and the clock is on the law's side.</p>
+  </div>
+</section>
+
+<section id="night">
+  <div class="wrap">
+    <div class="eyebrow">How to play</div>
+    <h2>One night in Harbour Hill</h2>
+    <p class="lede">Both teams plan <b>at the same time</b>, whispering in huddles. Then everything flips at once. It's a game of reading the board, guessing what the other side is guessing, and holding your nerve.</p>
+    <ol class="steps">
+      <li><h3>Briefing</h3><p>The cops may make an accusation. Everyone may talk. Robbers may lie through their teeth.</p></li>
+      <li><h3>Plan</h3><p>Each team puts a face-down destination token on the board for every pawn (up to 2 tiles away), plus decoys, and a face-down action card.</p></li>
+      <li><h3>Reveal</h3><p>Flip everything together. Gasp. Walk each pawn to its token.</p></li>
+      <li><h3>Resolve</h3><p>Always in order: Chase → Roadblock &amp; Stakeout → Grab, Search &amp; Scout → Heist! No arguments.</p></li>
+      <li><h3>Dawn</h3><p>Flip an event (Street Parade! Power Cut!) and move the dawn marker one night closer to sunrise.</p></li>
+    </ol>
+    <div class="scrollx"><img src="assets/art/dawn-track.webp" alt="The dawn track: ten nights, with shift changes after nights 3, 6 and 8, the sky lightening towards sunrise" loading="lazy"></div>
+    <p class="caption">The dawn track. Shift changes after Nights 3, 6 and 8 refill both teams' hands. After Night 10, the sun comes up.</p>
+  </div>
+</section>
+
+<section id="town">
+  <div class="wrap">
+    <div class="eyebrow">A new town every game</div>
+    <h2>Build the scene of the crime</h2>
+    <p class="lede">Harbour Hill is made of <b>20 noir city blocks</b>, and each game uses 16 of them in a 4×4 grid. Every edge matches, so any layout works. Change the town and you change which jobs are even possible. Go on, deal one.</p>
+    <div class="town">
+      <div>
+        <div class="grid4" id="grid" role="img" aria-label="A dealt town of 16 tiles"></div>
+        <p class="caption" id="gridCap">Harbour Hill, as seen on Night 8.</p>
+      </div>
+      <div class="panel">
+        <div class="ctas"><button class="btn primary" id="deal" type="button">Deal a new town</button><button class="btn" id="reset" type="button">Back to Harbour Hill</button></div>
+        <div>
+          <h3 style="margin-bottom:10px">Possible jobs in this town</h3>
+          <div class="chips" id="goals"></div>
+          <p class="muted" style="font-size:14px;margin-top:10px">A job only goes in the goal deck if its target and all three of its suppliers made it onto the board.</p>
+        </div>
+        <div>
+          <h3 style="margin-bottom:6px">The shopping lists</h3>
+          <table class="recipes">
+            <tr><td>Bank</td><td>Drill · Blueprints · Guard Schedule</td></tr>
+            <tr><td>Museum</td><td>Glass Cutter · Disguise · Guard Schedule</td></tr>
+            <tr><td>Jewellery</td><td>Glass Cutter · Getaway Car · Blueprints</td></tr>
+            <tr><td>Casino</td><td>Disguise · Uniform · Getaway Car</td></tr>
+            <tr><td>Grand Hotel</td><td>Master Key · Uniform · Guard Schedule</td></tr>
+          </table>
+          <p class="muted" style="font-size:14px;margin-top:10px">Items overlap on purpose. One Guard Schedule tells the cops it's the Bank, the Museum or the Hotel. Two clues and the net closes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="case">
+  <div class="wrap">
+    <div class="eyebrow">Try it yourself</div>
+    <h2>Can you crack the case?</h2>
+    <p class="lede">You're a cop. Read the evidence, then accuse. You can name a suspect any time, but a wrong accusation gives the robbers more time. Fewer clues, more glory.</p>
+    <div class="case">
+      <div class="file">
+        <h3>The Harbour Hill job</h3>
+        <ol id="clues">
+          <li>Night 3. Ray's stakeout at the <b>Café</b> catches Ziggy grabbing a <b>Guard Schedule</b>.</li>
+          <li class="hid">Night 4. Dot picks up the <b>Daily Herald</b>. Witness says: "It wasn't the <b>Grand Hotel</b>!"</li>
+          <li class="hid">Night 5. Dot chases Benny next to the Hardware Store. He drops a <b>Glass Cutter</b> into the evidence locker.</li>
+          <li class="hid">Night 7. Rosa walks out of the <b>Theatre</b>, which only supplies one thing: a <b>Disguise</b>.</li>
+        </ol>
+        <div class="row"><button class="btn" id="more" type="button">Next clue</button><button class="btn" id="again" type="button" hidden>Play again</button></div>
+      </div>
+      <div>
+        <div class="suspects" id="suspects">
+          <button type="button" data-t="bank"><img src="assets/art/tile-bank.webp" alt=""><span>Bank</span></button>
+          <button type="button" data-t="museum"><img src="assets/art/tile-museum.webp" alt=""><span>Museum</span></button>
+          <button type="button" data-t="jewel"><img src="assets/art/tile-jewellery-store.webp" alt=""><span>Jewellery</span></button>
+          <button type="button" data-t="casino"><img src="assets/art/tile-casino.webp" alt=""><span>Casino</span></button>
+          <button type="button" data-t="hotel"><img src="assets/art/tile-grand-hotel.webp" alt=""><span>Grand Hotel</span></button>
+        </div>
+        <p class="verdict" id="verdict" aria-live="polite">Tap a target to accuse it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="modes">
+  <div class="wrap">
+    <div class="eyebrow">Learn it like a criminal career</div>
+    <h2>Five ways to play</h2>
+    <p class="lede">The rules come in five modes. Each one adds a layer to the one before and plays as a complete game. Start with Break-In, then climb the ladder.</p>
+    <div class="modes">
+      <div class="mode"><span class="n">MODE 1</span><h3>Petty Theft</h3><p>The core race. Learn it in 20 minutes.</p></div>
+      <div class="mode"><span class="tag">Start here</span><span class="n">MODE 2</span><h3>Break-In</h3><p>Chases, stakeouts, roadblocks, decoys and events. Every action, every night.</p></div>
+      <div class="mode"><span class="tag">Standard game</span><span class="n">MODE 3</span><h3>The Big Job</h3><p>A shared team hand that runs out. Your used pile is a clue for the other side.</p></div>
+      <div class="mode"><span class="n">MODE 4</span><h3>Inside Job</h3><p>Secret loyalty cards, Internal Affairs and Shady Deals. Is the cop beside you on the take?</p></div>
+      <div class="mode"><span class="n">MODE 5</span><h3>Lone Wolf</h3><p>The cops guessed right? One robber holding a full set for a <i>different</i> job makes a solo getaway, and wins alone.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="box">
+  <div class="wrap">
+    <div class="eyebrow">What's in the box</div>
+    <h2>The pieces</h2>
+    <p class="lede">Everything is drawn as one 1940s film-noir movie set: oblique, top-down city blocks lit by streetlamps and the odd neon sign.</p>
+    <div class="box">
+      <ul class="contents">
+        <li><b>20</b><span>Town tiles<small>3 always in, 5 targets, 6 suppliers, 6 specials</small></span></li>
+        <li><b>1</b><span>Dawn track<small>10 nights, 3 shift changes</small></span></li>
+        <li><b>6</b><span>Pawn standees<small>3 robbers, 3 cops</small></span></li>
+        <li><b>6</b><span>Specialist standees<small>optional, from Locksmith to Dog Handler</small></span></li>
+        <li><b>15</b><span>Round tokens<small>destinations, decoys, stakeout, roadblock, accusation, dawn</small></span></li>
+        <li><b>32</b><span>Item tokens<small>4 each of 8 items</small></span></li>
+        <li><b>7</b><span>Robber action cards<small>Grab ×3, Scout ×2, Lie Low, Heist!</small></span></li>
+        <li><b>6</b><span>Cop action cards<small>Search ×2, Chase ×2, Roadblock, Stakeout</small></span></li>
+        <li><b>5</b><span>Goal cards<small>one secret job per target</small></span></li>
+        <li><b>5</b><span>Witness cards<small>"It wasn't the…"</small></span></li>
+        <li><b>8</b><span>Loyalty cards<small>Loyal ×6, Double Agent ×2</small></span></li>
+        <li><b>6</b><span>Event cards<small>4 events, 2 Shady Deals</small></span></li>
+        <li><b>2</b><span>Team mats<small>the Hideout table and the precinct desk</small></span></li>
+        <li><b>1</b><span>Rulebook<small>19 pages, with a worked example game</small></span></li>
+      </ul>
+      <div class="spread" aria-label="A spread of cards and tokens">
+        <img src="assets/art/card-robber-heist.webp" alt="Heist! card" loading="lazy">
+        <img src="assets/art/card-goal-museum.webp" alt="Goal card: Museum" loading="lazy">
+        <img src="assets/art/card-cop-chase.webp" alt="Chase card" loading="lazy">
+        <img src="assets/art/card-loyalty-double-agent.webp" alt="Double Agent loyalty card" loading="lazy">
+        <img src="assets/art/card-witness-bank.webp" alt="Witness card: it wasn't the Bank" loading="lazy">
+        <img src="assets/art/card-event-bribe.webp" alt="Shady Deal: Bribe" loading="lazy">
+        <img src="assets/art/item-drill.webp" alt="Drill item token" loading="lazy">
+        <img src="assets/art/token-destination-robber-1.webp" alt="Robber 1 destination token" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="wrap">
+    <div class="eyebrow">Art gallery</div>
+    <h2>Welcome to Harbour Hill</h2>
+    <p class="lede">All the draft art, straight from the playtest kit. Tap anything to take a closer look.</p>
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="gal" id="gal"></div>
+  </div>
+</section>
+<dialog id="lb"><img id="lbImg" alt=""><p id="lbCap"></p></dialog>
+
+<section id="downloads">
+  <div class="wrap">
+    <div class="eyebrow">Free to print and try</div>
+    <h2>Play it tonight</h2>
+    <p class="lede">The whole game is free to print and play while it's in testing. All you need is A4 card, scissors, 6 plastic stands (or bits of Blu Tack) and some friends you don't entirely trust.</p>
+    <div class="dl">
+      <a class="card" href="rules/heist-rulebook-A4.pdf">
+        <img src="assets/cover.webp" alt="" loading="lazy">
+        <div><h3>The rulebook</h3><p>19 A4 pages: five modes, a glossary, a full worked example from Night 8 in Harbour Hill, and rulings for every argument we've had so far.</p><span class="go">PDF · 2 MB →</span></div>
+      </a>
+      <a class="card" href="print-and-play/heist-print-and-play-A4.pdf">
+        <img src="assets/art/card-back-the-job-back.webp" alt="" loading="lazy">
+        <div><h3>Print &amp; play kit</h3><p>15 A4 sheets of tiles, cards, tokens, standees, the dawn track and both team mats. Print double-sided, flip on the long edge.</p><span class="go">PDF · 4.4 MB →</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="notes">
+  <div class="wrap">
+    <div class="eyebrow">Designer's notes</div>
+    <h2>Why it works (we hope)</h2>
+    <div class="cols3">
+      <div class="note"><h3>Open moves, hidden intent</h3><p>Pawns walk around the board in plain sight. The secret is <i>why</i>. Face-down destination tokens and decoys give the cops something to read, and the robbers something to bluff with.</p></div>
+      <div class="note"><h3>The prep leaks the plan</h3><p>Every target needs three items and every item fits more than one target. Robbers can't avoid leaving clues, only blur them. That's the whole deduction engine, and it fits on one card.</p></div>
+      <div class="note"><h3>Unanimous, with a mole</h3><p>Cops must agree to accuse, which is tense on its own. Add a possible double agent who can quietly block the vote, and Internal Affairs to flush them out, and the precinct gets very twitchy.</p></div>
+    </div>
+    <p class="muted" style="margin-top:28px">More in <a href="docs/design-notes.md">the design notes</a> and the original <a href="docs/design-history/">brainstorm documents</a>.</p>
+  </div>
+</section>
+
+<section id="roadmap">
+  <div class="wrap">
+    <div class="eyebrow">Roadmap</div>
+    <h2>The road to the big score</h2>
+    <ul class="road">
+      <li class="done"><b>Core concept <em>Done</em></b><span>Two teams, a secret target, a unanimous accusation and a modular town.</span></li>
+      <li class="done"><b>Rules draft 1 <em>Done</em></b><span>Five modes, glossary, clarifications and a worked example game.</span></li>
+      <li class="done"><b>Art and print &amp; play kit <em>Done</em></b><span>All 20 tiles, every card, pawns, tokens, mats and a 19-page illustrated rulebook.</span></li>
+      <li class="now"><b>Playtesting <em>Now</em></b><span>Item pace, accusation penalty, double-agent odds, the Daily Herald, the Master Key and more. <a href="docs/roadmap.md">See the open questions</a>.</span></li>
+      <li><b>Rules draft 2</b><span>Balance changes from playtests, a second Master Key job, a tighter quick-reference card.</span></li>
+      <li><b>Blind playtests</b><span>Groups who learn only from the rulebook, with nobody there to explain.</span></li>
+      <li><b>Final art and a real box</b><span>Then, perhaps, the big job: a publisher or a crowdfunding campaign.</span></li>
+    </ul>
+    <p class="lede" style="margin-top:12px">Played it? We'd love to hear how it went. <a href="docs/playtesting.md">Here's how to send a playtest report</a>.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="big">Heist!</div>
+      <p style="margin-top:8px">Cops &amp; Robbers. A board game by julz. Draft 1, for playtesting. Licensed CC BY-SA 4.0.</p>
+      <p style="margin-top:12px;font-size:13px">All names, places and crimes are fictional. No safes were harmed.</p>
+    </div>
+    <div>
+      <h3>The game</h3>
+      <ul>
+        <li><a href="docs/overview.md">Overview</a></li>
+        <li><a href="docs/how-to-play.md">How to play</a></li>
+        <li><a href="docs/components.md">Components</a></li>
+        <li><a href="rules/heist-rulebook-A4.pdf">Rulebook (PDF)</a></li>
+        <li><a href="print-and-play/heist-print-and-play-A4.pdf">Print &amp; play (PDF)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>The project</h3>
+      <ul>
+        <li><a href="docs/design-notes.md">Design notes</a></li>
+        <li><a href="docs/roadmap.md">Roadmap</a></li>
+        <li><a href="docs/playtesting.md">Playtesting</a></li>
+        <li><a href="CREDITS.md">Credits</a></li>
+        <li><a href="LICENSE.md">Licence</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+const A='assets/art/';
+/* ---------- deal a town ---------- */
+const TILES={
+  core:['hideout','police-station','hardware-store'],
+  target:['bank','museum','jewellery-store','casino','grand-hotel'],
+  supplier:['theatre','garage','cafe','town-hall','laundromat','pawn-shop'],
+  special:['park','main-street','train-station','market','harbour-docks','daily-herald']
+};
+const NAMES={'hideout':'Hideout','police-station':'Police Station','hardware-store':'Hardware Store','bank':'Bank','museum':'Museum','jewellery-store':'Jewellery Store','casino':'Casino','grand-hotel':'Grand Hotel','theatre':'Theatre','garage':'Garage','cafe':'Café','town-hall':'Town Hall','laundromat':'Laundromat','pawn-shop':'Pawn Shop','park':'Park','main-street':'Main Street','train-station':'Train Station','market':'Market','harbour-docks':'Harbour Docks','daily-herald':'Daily Herald'};
+const SUP={'Drill':'hardware-store','Glass Cutter':'hardware-store','Disguise':'theatre','Getaway Car':'garage','Guard Schedule':'cafe','Blueprints':'town-hall','Uniform':'laundromat','Master Key':'pawn-shop'};
+const NEEDS={'bank':['Drill','Blueprints','Guard Schedule'],'museum':['Glass Cutter','Disguise','Guard Schedule'],'jewellery-store':['Glass Cutter','Getaway Car','Blueprints'],'casino':['Disguise','Uniform','Getaway Car'],'grand-hotel':['Master Key','Uniform','Guard Schedule']};
+const HARBOUR=['hideout','theatre','park','museum','garage','main-street','cafe','town-hall','casino','laundromat','hardware-store','bank','train-station','jewellery-store','police-station','market'];
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const grid=document.getElementById('grid');
+function draw(layout){
+  grid.innerHTML=layout.map((id,i)=>`<img src="${A}tile-${id}.webp" alt="${NAMES[id]}" title="${NAMES[id]}" width="400" height="400">`).join('');
+  [...grid.children].forEach((im,i)=>setTimeout(()=>im.classList.add('in'),40*i));
+  const on=new Set(layout);
+  document.getElementById('goals').innerHTML=TILES.target.map(t=>{
+    const miss=!on.has(t)?['tile not in town']:NEEDS[t].filter(it=>!on.has(SUP[it])).map(it=>'no '+it);
+    return `<span class="chip ${miss.length?'out':'ok'}" title="${miss.join(', ')}">${NAMES[t]}</span>`;}).join('');
+}
+function deal(){
+  const pick=(g,k)=>shuffle(TILES[g]).slice(0,k);
+  const set=[...TILES.core,...pick('target',4),...pick('supplier',5),...pick('special',4)];
+  let L;
+  for(let n=0;n<200;n++){ // Hideout and Police Station at least 3 steps apart
+    L=shuffle(set);const a=L.indexOf('hideout'),b=L.indexOf('police-station');
+    if(Math.abs(a%4-b%4)+Math.abs((a>>2)-(b>>2))>=3)break;
+  }
+  draw(L);
+  const left=Object.values(TILES).flat().filter(t=>!L.includes(t)).map(t=>NAMES[t]);
+  document.getElementById('gridCap').textContent='A fresh town. Left in the box: '+left.join(', ')+'.';
+}
+document.getElementById('deal').onclick=deal;
+document.getElementById('reset').onclick=()=>{draw(HARBOUR);document.getElementById('gridCap').textContent='Harbour Hill, as seen on Night 8.';};
+draw(HARBOUR);
+
+/* ---------- crack the case ---------- */
+const clues=[...document.querySelectorAll('#clues li')];
+const RULED=[['jewel','casino'],['hotel'],['bank'],[]]; // what each clue rules out
+let shown=1,tries=0,done=false;
+const verdict=document.getElementById('verdict');
+const sus=[...document.querySelectorAll('#suspects button')];
+function strike(){sus.forEach(b=>b.classList.toggle('x',RULED.slice(0,shown).flat().includes(b.dataset.t)));}
+document.getElementById('more').onclick=e=>{
+  if(shown<clues.length){clues[shown].classList.remove('hid');clues[shown].classList.add('new');shown++;}
+  if(shown===clues.length)e.currentTarget.disabled=true;
+  strike();
+};
+sus.forEach(b=>b.onclick=()=>{
+  if(done)return;tries++;
+  if(b.dataset.t==='museum'){
+    done=true;
+    const msg=['Cracked it on the first clue? Are you sure you are not the mole?','Unanimous and right after two clues. The Chief is buying the coffee.','Three clues, one correct accusation. Cuffs on, case closed.','Got there! Just before Rosa slipped in wearing that Disguise.'][shown-1];
+    verdict.className='verdict win';verdict.textContent=(tries>1?'Second time lucky. ':'')+msg;
+    document.getElementById('again').hidden=false;
+  }else if(tries>=2){
+    done=true;verdict.className='verdict lose';verdict.textContent='Out of accusation tokens. At dawn, Rosa strolls out of the Museum in a borrowed disguise. The robbers win.';
+    document.getElementById('again').hidden=false;
+  }else{
+    verdict.className='verdict lose';verdict.textContent=`Wrong! It wasn't the ${b.querySelector('span').textContent}. The dawn marker slides back a night. One accusation left.`;
+    b.classList.add('x');
+  }
+});
+document.getElementById('again').onclick=e=>{
+  shown=1;tries=0;done=false;clues.forEach((c,i)=>{c.classList.toggle('hid',i>0);c.classList.remove('new')});
+  document.getElementById('more').disabled=false;e.currentTarget.hidden=true;sus.forEach(b=>b.classList.remove('x'));
+  verdict.className='verdict';verdict.textContent='Tap a target to accuse it.';
+};
+
+/* ---------- gallery ---------- */
+const G={
+  'Town tiles':{items:Object.values(TILES).flat().map(t=>['tile-'+t,NAMES[t]])},
+  'Cards':{items:[['card-robber-grab','Grab'],['card-robber-scout','Scout'],['card-robber-lie-low','Lie Low'],['card-robber-heist','Heist!'],['card-cop-search','Search'],['card-cop-chase','Chase'],['card-cop-roadblock','Roadblock'],['card-cop-stakeout','Stakeout'],
+    ...TILES.target.map(t=>['card-goal-'+t,'Goal: '+NAMES[t]]),...TILES.target.map(t=>['card-witness-'+t,'Witness: '+NAMES[t]]),
+    ['card-loyalty-loyal','Loyal'],['card-loyalty-double-agent','Double Agent'],['card-event-street-parade','Street Parade'],['card-event-museum-gala','Museum Gala'],['card-event-power-cut','Power Cut'],['card-event-night-shift-bonus','Night Shift Bonus'],['card-event-bribe','Bribe'],['card-event-snitch','Snitch'],
+    ['card-back-robber-actions-back','Robber card back'],['card-back-cop-actions-back','Cop card back'],['card-back-the-job-back','Goal card back'],['card-back-witness-back','Witness back'],['card-back-loyalty-back','Loyalty back'],['card-back-event-back','Event back']]},
+  'Pawns':{items:[['pawn-robber-1','Robber 1'],['pawn-robber-2','Robber 2'],['pawn-robber-3','Robber 3'],['pawn-cop-1','Cop 1'],['pawn-cop-2','Cop 2'],['pawn-cop-3','Cop 3'],
+    ['specialist-locksmith','Locksmith'],['specialist-getaway-driver','Getaway Driver'],['specialist-lookout','Lookout'],['specialist-detective','Detective'],['specialist-dog-handler','Dog Handler'],['specialist-sergeant','Sergeant']]},
+  'Tokens':{items:[['token-destination-robber-1','Destination: Robber 1'],['token-destination-robber-2','Destination: Robber 2'],['token-destination-robber-3','Destination: Robber 3'],['token-destination-cop-1','Destination: Cop 1'],['token-destination-cop-2','Destination: Cop 2'],['token-destination-cop-3','Destination: Cop 3'],
+    ['token-robber-decoy-2','Robber decoy'],['token-cop-decoy-2','Cop decoy'],['token-robber-token-back','Robber token back'],['token-cop-token-back','Cop token back'],['token-stakeout-1','Stakeout'],['token-roadblock-1','Roadblock'],['token-accusation-2','Accusation'],['token-dawn-marker-1','Dawn marker'],
+    ['item-drill','Drill'],['item-glass-cutter','Glass Cutter'],['item-disguise','Disguise'],['item-getaway-car','Getaway Car'],['item-guard-schedule','Guard Schedule'],['item-blueprints','Blueprints'],['item-uniform','Uniform'],['item-master-key','Master Key'],['item-back','Item back']]},
+  'Board & mats':{wide:true,items:[['board','Harbour Hill, a full 4×4 town'],['mat-robbers','The Hideout table (robbers\' mat)'],['mat-cops','The precinct desk (cops\' mat)'],['dawn-track','The dawn track']]}
+};
+const tabs=document.getElementById('tabs'),gal=document.getElementById('gal');
+function show(name){
+  [...tabs.children].forEach(b=>b.setAttribute('aria-selected',b.textContent===name));
+  gal.className='gal'+(G[name].wide?' wide':'');
+  gal.innerHTML=G[name].items.map(([f,c])=>`<figure tabindex="0" data-src="${A}${f}.webp"><img src="${A}${f}.webp" alt="${c}" loading="lazy"><figcaption>${c}</figcaption></figure>`).join('');
+}
+Object.keys(G).forEach((k,i)=>{const b=document.createElement('button');b.type='button';b.role='tab';b.textContent=k;b.onclick=()=>show(k);tabs.appendChild(b);});
+show('Town tiles');
+const lb=document.getElementById('lb');
+function open(fig){document.getElementById('lbImg').src=fig.dataset.src;document.getElementById('lbImg').alt=fig.querySelector('figcaption').textContent;document.getElementById('lbCap').textContent=fig.querySelector('figcaption').textContent;lb.showModal();}
+gal.addEventListener('click',e=>{const f=e.target.closest('figure');if(f)open(f);});
+gal.addEventListener('keydown',e=>{const f=e.target.closest('figure');if(f&&(e.key==='Enter'||e.key===' ')){e.preventDefault();open(f);}});
+lb.addEventListener('click',()=>lb.close());
+</script>
+</body>
+</html>
